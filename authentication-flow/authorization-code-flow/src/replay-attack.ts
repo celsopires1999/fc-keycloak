@@ -1,5 +1,5 @@
 const url =
-"http://localhost:3000/callback?session_state=e48cb863-3a51-4d18-9953-3bcb71d506af&code=44592ab1-d9c0-4eb5-b9d6-8880f070d6bb.e48cb863-3a51-4d18-9953-3bcb71d506af.ff2f502b-1904-412b-9fc5-f5b29aea7574"
+"http://localhost:3000/callback?session_state=f3682900-90ae-4f3f-badc-f3ffb4fb0eee&code=eee82292-82f7-4184-bbd3-e2b4a341e8ee.f3682900-90ae-4f3f-badc-f3ffb4fb0eee.ff2f502b-1904-412b-9fc5-f5b29aea7574"
 
 const request1 = fetch(url);
 const request2 = fetch(url);
