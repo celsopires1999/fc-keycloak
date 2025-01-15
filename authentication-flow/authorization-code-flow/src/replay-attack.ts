@@ -1,5 +1,5 @@
 const url =
-  "http://host.docker.internal:3000/callback?session_state=3e3447bc-55c8-4283-97d1-fdd2da0f5cd7&code=9ea4cd51-b214-4a1a-a52f-0e9e5ad21c39.3e3447bc-55c8-4283-97d1-fdd2da0f5cd7.34b28fed-8773-41a4-bfde-bf98c8950b26";
+"http://localhost:3000/callback?session_state=e48cb863-3a51-4d18-9953-3bcb71d506af&code=44592ab1-d9c0-4eb5-b9d6-8880f070d6bb.e48cb863-3a51-4d18-9953-3bcb71d506af.ff2f502b-1904-412b-9fc5-f5b29aea7574"
 
 const request1 = fetch(url);
 const request2 = fetch(url);
