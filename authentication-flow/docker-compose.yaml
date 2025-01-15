@@ -1,5 +1,3 @@
-version: '3'
-
 services:
 
   app:
@@ -9,4 +7,5 @@ services:
     volumes:
       - .:/home/node/app
     extra_hosts:
-      - "host.docker.internal:172.17.0.1"
+      # - "host.docker.internal:172.17.0.1"
+      - "host.docker.internal:host-gateway"
