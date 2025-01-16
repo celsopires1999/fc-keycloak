@@ -21,9 +21,12 @@ app.use(
 
 app.get("/login", (req, res) => {
   const nonce = crypto.randomBytes(16).toString("base64");
+  const state = crypto.randomBytes(16).toString("base64");
 
   //@ts-expect-error - type mismatch
   req.session.nonce = nonce;
+  //@ts-expect-error - type mismatch
+  req.session.state = state;
   req.session.save();
 
   const loginParams = new URLSearchParams({
@@ -32,6 +35,7 @@ app.get("/login", (req, res) => {
     response_type: "code",
     scope: "openid",
     nonce,
+    state,
   });
 
   const url = `http://localhost:8080/realms/fullcycle-realm/protocol/openid-connect/auth?${loginParams.toString()}`;
@@ -39,6 +43,20 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/callback", async (req, res) => {
+
+  //@ts-expect-error - type mismatch
+  if (req.session.user) {
+    return res.redirect("/admin");
+  }
+
+  //@ts-expect-error - type mismatch
+  if(req.query.state !== req.session.state) {
+    //poderia redirecionar para o login em vez de mostrar o erro
+    return res.status(401).json({ message: "Unauthenticated" });
+  }
+
+  console.log(req.query);
+
   const bodyParams = new URLSearchParams({
     client_id: "fullcycle-client",
     grant_type: "authorization_code",
