@@ -5,7 +5,7 @@ import { JWTPayload } from "jose";
 type AuthContextProps = {
   auth: JWTPayload | null;
   makeLoginUrl: () => string;
-  makeLogoutUrl: () => string;
+  makeLogoutUrl: () => string | false;
   login: (accessToken: string, idToken: string, state: string) => JWTPayload;
 };
 
@@ -39,7 +39,7 @@ export const AuthProvider = (props: PropsWithChildren) => {
     []
   );
 
-  const [data, setData] = useState({
+  const [data, setData] = useState<AuthContextProps>({
     auth: utils.getAuth(),
     makeLoginUrl: utils.makeLoginUrl,
     makeLogoutUrl: utils.makeLogoutUrl,
