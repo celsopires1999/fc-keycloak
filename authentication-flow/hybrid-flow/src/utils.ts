@@ -20,7 +20,7 @@ export function makeLoginUrl() {
   return `http://localhost:8080/realms/fullcycle-realm/protocol/openid-connect/auth?${loginUrlParams.toString()}`;
 }
 
-export function exchangeCodeForToken(code: string) {
+export async function exchangeCodeForToken(code: string) {
   const tokenUrlParams = new URLSearchParams({
     client_id: "fullcycle-client",
     grant_type: "authorization_code",
@@ -29,7 +29,22 @@ export function exchangeCodeForToken(code: string) {
     nonce: Cookies.get("nonce") as string,
   });
 
-  return fetch(
+  // return fetch(
+  //   "http://localhost:8080/realms/fullcycle-realm/protocol/openid-connect/token",
+  //   {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/x-www-form-urlencoded",
+  //     },
+  //     body: tokenUrlParams.toString(),
+  //   }
+  // )
+  //   .then((res) => res.json())
+  //   .then((res) => {
+  //     return login(res.access_token, null, res.refresh_token);
+  //   });
+
+const reponse = await fetch(
     "http://localhost:8080/realms/fullcycle-realm/protocol/openid-connect/token",
     {
       method: "POST",
@@ -37,12 +52,12 @@ export function exchangeCodeForToken(code: string) {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: tokenUrlParams.toString(),
-    }
-  )
-    .then((res) => res.json())
-    .then((res) => {
-      return login(res.access_token, null, res.refresh_token);
     });
+
+  const body = await reponse.json();
+  
+  return login(body.access_token, null, body.refresh_token);
+
 }
 
 export function login(
